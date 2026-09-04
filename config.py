@@ -1,10 +1,17 @@
 import os
+import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 
-load_dotenv(Path(__file__).resolve().parent / ".env")
+if getattr(sys, "frozen", False):
+    pasta_configuracao = Path(sys.executable).resolve().parent
+else:
+    pasta_configuracao = Path(__file__).resolve().parent
+
+
+load_dotenv(pasta_configuracao / ".env")
 
 
 def _obter_variavel_obrigatoria(nome: str) -> str:
