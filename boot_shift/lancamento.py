@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import time
 
+from config import SHIFT_LOGIN, SHIFT_PASSWORD
+
 def abrir_navegador():
     driver = webdriver.Edge()
     driver.maximize_window()
@@ -19,7 +21,7 @@ def login(wait):
             (By.XPATH, '//div[@class="login"]//input[@placeholder="Usuário"]')
             )
     )
-    login_email.send_keys("marcos.leao")
+    login_email.send_keys(SHIFT_LOGIN)
 
     #Campo senha
     login_password = wait.until(
@@ -27,7 +29,7 @@ def login(wait):
             (By.XPATH, '//div[@class="login"]//input[@placeholder="Senha"]')
             )
     )
-    login_password.send_keys("mpl@1559")
+    login_password.send_keys(SHIFT_PASSWORD)
 
     #Logando no sistema
     login_button = wait.until(

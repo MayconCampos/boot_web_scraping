@@ -5,6 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
 import time
 
+from config import DATACG_LOGIN, DATACG_PASSWORD
+
 
 PASTA_DOWNLOAD = Path(r"C:\Users\manoel.campos\Downloads")
 
@@ -20,12 +22,12 @@ def login_sistema(wait):
     login_email = wait.until(
         EC.element_to_be_clickable((By.ID, "mat-input-0"))
     )
-    login_email.send_keys("adriano.marques@sfiemt.ind.br")
+    login_email.send_keys(DATACG_LOGIN)
 
     login_password = wait.until(
         EC.element_to_be_clickable((By.ID, "mat-input-1"))
     )
-    login_password.send_keys("Adr!@#07")
+    login_password.send_keys(DATACG_PASSWORD)
 
     login_button = wait.until(
         EC.element_to_be_clickable(
