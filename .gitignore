@@ -23,3 +23,6 @@ dist/
 .vscode/
 .idea/
 desktop.ini
+
+#Tirando o Excel do git para não apitar sempre que o código rodar
+Critica_SGE/*.xlsx
