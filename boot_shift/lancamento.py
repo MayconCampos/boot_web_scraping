@@ -102,16 +102,17 @@ def importando_critica(wait):
     drop_dall_campo_ciclo.click()
 
     #Selecionando o ciclo
+    _ , ano = data_referencia()
     drop_dall_ciclo = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, '//span[normalize-space()="REFORMULACAO-2026"]')
+            (By.XPATH, f'//span[normalize-space()="REFORMULACAO-{ano}"]')
             )
     )
 
     drop_dall_ciclo.click()
 
     #Selecionando o mês de Agosto
-    mes = data_referencia(True)
+    mes, _= data_referencia(True)
     # //*//button[@ptooltip="Detalhar"] -> Agosto
     lupa_mes_desejado = wait.until(
         EC.element_to_be_clickable(

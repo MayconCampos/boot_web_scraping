@@ -26,3 +26,5 @@ desktop.ini
 
 #Tirando o Excel do git para não apitar sempre que o código rodar
 transformacao_excel/Critica_SGE.xlsx
+*.pyc/
+__pycache__

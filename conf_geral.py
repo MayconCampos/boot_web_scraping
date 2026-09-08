@@ -21,10 +21,12 @@ def data_referencia(maiusculo = False):
 
     data_atual = date.today()
     mes_ref = data_atual.month
-    if maiusculo:
-        mes_importacao = meses[mes_ref].upper()
-        return mes_importacao
-    
+
     mes_importacao = meses[mes_ref]
     ano_importacao = data_atual.year
+
+    if maiusculo:
+        mes_importacao = meses[mes_ref].upper()
+        return mes_importacao, ano_importacao
+    
     return mes_importacao, ano_importacao
