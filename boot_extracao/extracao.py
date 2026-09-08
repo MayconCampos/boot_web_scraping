@@ -4,8 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
 import time
-
 from config import DATACG_LOGIN, DATACG_PASSWORD
+from conf_geral import data_referencia
 
 
 PASTA_DOWNLOAD = Path(r"C:\Users\manoel.campos\Downloads")
@@ -110,9 +110,10 @@ def gerando_relatorio(wait):
     month_field.click()
 
     #Selecionando mês
+    mes, _ = data_referencia(False)
     month = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, "//mat-option[.//span[normalize-space()='Setembro']]")
+            (By.XPATH, f"//mat-option[.//span[normalize-space()='{mes}']]")
         )
     )
 
@@ -128,9 +129,10 @@ def gerando_relatorio(wait):
     year_field.click()
 
     #Selecionando ano
+    _  , ano = data_referencia()
     year = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, "//mat-option[.//span[normalize-space()='2026']]")
+            (By.XPATH, f"//mat-option[.//span[normalize-space()='{ano}']]")
         )
     )
 

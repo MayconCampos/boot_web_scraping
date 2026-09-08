@@ -4,8 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import time
-
 from config import SHIFT_LOGIN, SHIFT_PASSWORD
+from conf_geral import data_referencia
 
 def abrir_navegador():
     driver = webdriver.Edge()
@@ -111,10 +111,11 @@ def importando_critica(wait):
     drop_dall_ciclo.click()
 
     #Selecionando o mês de Agosto
+    mes = data_referencia(True)
     # //*//button[@ptooltip="Detalhar"] -> Agosto
     lupa_mes_desejado = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, '//tr[.//td[normalize-space()="SETEMBRO"]]//button[@ptooltip="Detalhar"]')
+            (By.XPATH, f'//tr[.//td[normalize-space()="{mes}"]]//button[@ptooltip="Detalhar"]')
         )
     )
 
