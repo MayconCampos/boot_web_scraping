@@ -111,9 +111,10 @@ def importando_critica(wait):
     drop_dall_ciclo.click()
 
     #Selecionando o mês de Agosto
+    # //*//button[@ptooltip="Detalhar"] -> Agosto
     lupa_mes_desejado = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, '//*//button[@ptooltip="Detalhar"]')
+            (By.XPATH, '//tr[.//td[normalize-space()="SETEMBRO"]]//button[@ptooltip="Detalhar"]')
         )
     )
 

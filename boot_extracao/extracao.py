@@ -112,7 +112,7 @@ def gerando_relatorio(wait):
     #Selecionando mês
     month = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, "//mat-option[.//span[normalize-space()='Agosto']]")
+            (By.XPATH, "//mat-option[.//span[normalize-space()='Setembro']]")
         )
     )
 
