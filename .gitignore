@@ -28,3 +28,7 @@ desktop.ini
 transformacao_excel/Critica_SGE.xlsx
 *.pyc/
 __pycache__
+
+#Tirando o Arquivo usado para teste
+teste_antes_implementacao.py
+transformacao_excel/NOVO.xlsx

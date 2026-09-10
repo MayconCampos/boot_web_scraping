@@ -1,4 +1,4 @@
-r'''
+
 import pandas as pd
 
 
@@ -7,7 +7,7 @@ import pandas as pd
 # ============================================================
 
 df_critica_sge_pura = pd.read_csv(
-    r'C:\Users\manoel.campos\Downloads\Críticas_1811.csv',
+    r'C:\Users\manoel.campos\Downloads\Críticas_1882.csv',
     dtype=str
 )
 
@@ -111,52 +111,52 @@ df_reordenada.to_excel(
 )
 print(df_reordenada)
 print("Arquivo transformado com sucesso!")
-'''
-
-from datetime import date
-
-data = date(year=2026, month=12,day=1)
-print(data)
 
 
-data_atual = date.today()
-print(data_atual)
+# from datetime import date
+
+# data = date(year=2026, month=12,day=1)
+# print(data)
 
 
-data = date(year=2026, month=9, day=8)
-data_ajustada = data.strftime("%d/%m/%Y")
-print(data_ajustada)
+# data_atual = date.today()
+# print(data_atual)
 
-data_atual_ajustada = data_atual.strftime("%d/%B/%Y")
-print(data_atual_ajustada)
 
-print(type(data_atual_ajustada))
-print(len(data_atual_ajustada))
+# data = date(year=2026, month=9, day=8)
+# data_ajustada = data.strftime("%d/%m/%Y")
+# print(data_ajustada)
 
-# data_atual_ajustada.month()
-mes_atual = data_atual.month
-mes_atual_formatado = data_atual.strftime("%B")
-print(mes_atual)
-print(mes_atual_formatado)
+# data_atual_ajustada = data_atual.strftime("%d/%B/%Y")
+# print(data_atual_ajustada)
 
-meses = {1:"Janeiro",
-         2:"Fevereiro", 
-         3:"Março", 
-         4:"Abril", 
-         5:"Maio", 
-         6:"Junho", 
-         7:"Julho", 
-         8:"Agosto", 
-         9:"Setembro", 
-         10:"Outubro", 
-         11:"Novembro", 
-         12:"Dezembro"}
+# print(type(data_atual_ajustada))
+# print(len(data_atual_ajustada))
 
-print(meses[mes_atual].upper())
+# # data_atual_ajustada.month()
+# mes_atual = data_atual.month
+# mes_atual_formatado = data_atual.strftime("%B")
+# print(mes_atual)
+# print(mes_atual_formatado)
 
-'''
-Lógica do código a partir de agora:
+# meses = {1:"Janeiro",
+#          2:"Fevereiro", 
+#          3:"Março", 
+#          4:"Abril", 
+#          5:"Maio", 
+#          6:"Junho", 
+#          7:"Julho", 
+#          8:"Agosto", 
+#          9:"Setembro", 
+#          10:"Outubro", 
+#          11:"Novembro", 
+#          12:"Dezembro"}
 
-ele vai pegar o mês atual e vai mandar para o boot_extrador e para o boot shift
-como vai ser um modulo a parti tenho que deixar junto com  a raiz "main" principal.
-'''
+# print(meses[mes_atual].upper())
+
+# '''
+# Lógica do código a partir de agora:
+
+# ele vai pegar o mês atual e vai mandar para o boot_extrador e para o boot shift
+# como vai ser um modulo a parti tenho que deixar junto com  a raiz "main" principal.
+# '''
