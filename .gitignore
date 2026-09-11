@@ -30,5 +30,5 @@ transformacao_excel/Critica_SGE.xlsx
 __pycache__
 
 #Tirando o Arquivo usado para teste
-teste_antes_implementacao.py
+testes_antes_implementacao.py
 transformacao_excel/NOVO.xlsx
