@@ -33,7 +33,7 @@ def data_referencia(maiusculo = False):
     
     return mes_importacao, ano_importacao
 
-def data_anterior(maiusuclo = False):
+def data_anterior(maiusculo = False):
     data_atual = date.today()
     mes_atual = data_atual.month
     ano_atual = data_atual.year
@@ -42,7 +42,7 @@ def data_anterior(maiusuclo = False):
         mes_ref = 12
         mes_importacao = meses[mes_ref]
         ano_importacao = ano_atual - 1
-        if maiusuclo:
+        if maiusculo:
             mes_importacao = mes_importacao.upper()
         return mes_importacao, ano_importacao
         
@@ -50,7 +50,7 @@ def data_anterior(maiusuclo = False):
     mes_importacao = meses[mes_ref]
     ano_importacao = ano_atual
     
-    if maiusuclo:
+    if maiusculo:
         mes_importacao = mes_importacao.upper()
         return mes_importacao, ano_importacao
     
