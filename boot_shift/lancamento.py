@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import time
 from config import SHIFT_LOGIN, SHIFT_PASSWORD
-from conf_geral import data_referencia
 
 def abrir_navegador():
     driver = webdriver.Edge()
@@ -80,7 +79,7 @@ def aba_apuracao(driver,wait):
 
     selecionando_apuracao.click()
 
-def importando_critica(wait):
+def importando_critica(wait,funcao_data):
     #Subindo o arquivo critica
 
     #Desativando o botão de "Apuração Ativa?"
@@ -102,7 +101,7 @@ def importando_critica(wait):
     drop_dall_campo_ciclo.click()
 
     #Selecionando o ciclo
-    _ , ano = data_referencia()
+    _ , ano = funcao_data(True)
     drop_dall_ciclo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f'//span[normalize-space()="REFORMULACAO-{ano}"]')
@@ -112,8 +111,8 @@ def importando_critica(wait):
     drop_dall_ciclo.click()
 
     #Selecionando o mês de Agosto
-    mes, _= data_referencia(True)
-    # //*//button[@ptooltip="Detalhar"] -> Agosto
+    mes, _= funcao_data(True)
+   
     lupa_mes_desejado = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f'//tr[.//td[normalize-space()="{mes}"]]//button[@ptooltip="Detalhar"]')
@@ -176,4 +175,4 @@ def anexando_critica(driver, wait):
 
     botao_salvar.click()
     print('Fim do processo arquivo publicado')
-    time.sleep(30)
+    time.sleep(60)

@@ -5,11 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
 import time
 from config import DATACG_LOGIN, DATACG_PASSWORD
-from conf_geral import data_referencia
-
 
 PASTA_DOWNLOAD = Path(r"C:\Users\manoel.campos\Downloads")
-
 
 def abrir_navegador():
     driver = webdriver.Chrome()
@@ -65,7 +62,7 @@ def perfis_acesso(wait):
     profile_confirm.click()
     return True
 
-def gerando_relatorio(wait):
+def gerando_relatorio(wait,funcao_data):
     # Menu do relatório
     menu_report = wait.until(
         EC.element_to_be_clickable(
@@ -110,7 +107,7 @@ def gerando_relatorio(wait):
     month_field.click()
 
     #Selecionando mês
-    mes, _ = data_referencia(False)
+    mes, _ = funcao_data(False)
     month = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f"//mat-option[.//span[normalize-space()='{mes}']]")
@@ -129,7 +126,7 @@ def gerando_relatorio(wait):
     year_field.click()
 
     #Selecionando ano
-    _  , ano = data_referencia()
+    _  , ano = funcao_data(False)
     year = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f"//mat-option[.//span[normalize-space()='{ano}']]")

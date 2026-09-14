@@ -8,13 +8,13 @@ from .extracao import (
     aguardar_novo_download
 )
 
-def disparar_extracao():
+def disparar_extracao(funcao_data):
     driver = None
     try:
         driver, wait = abrir_navegador()
         login_sistema(wait)
         perfis_acesso(wait)
-        gerando_relatorio(wait)
+        gerando_relatorio(wait,funcao_data)
         arquivos_antes = exportando_computador(driver, wait)
         arquivo_baixado = aguardar_novo_download(arquivos_antes)
         logging.info("Download concluído: %s", arquivo_baixado)

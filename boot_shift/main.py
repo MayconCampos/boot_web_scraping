@@ -8,13 +8,13 @@ from .lancamento import (
     anexando_critica
 )
 
-def disparar_critica():
+def disparar_critica(funcao_data):
     driver = None
     try:
         driver, wait = abrir_navegador()
         login(wait)
         aba_apuracao(driver, wait)
-        importando_critica(wait)
+        importando_critica(wait,funcao_data)
         anexando_critica(driver, wait)
         return True
     except Exception:
