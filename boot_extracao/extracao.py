@@ -62,7 +62,7 @@ def perfis_acesso(wait):
     profile_confirm.click()
     return True
 
-def gerando_relatorio(wait,funcao_data):
+def gerando_relatorio(wait,mes_importacao, ano_importacao):
     # Menu do relatório
     menu_report = wait.until(
         EC.element_to_be_clickable(
@@ -107,7 +107,7 @@ def gerando_relatorio(wait,funcao_data):
     month_field.click()
 
     #Selecionando mês
-    mes, _ = funcao_data(False)
+    mes = mes_importacao
     month = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f"//mat-option[.//span[normalize-space()='{mes}']]")
@@ -126,7 +126,7 @@ def gerando_relatorio(wait,funcao_data):
     year_field.click()
 
     #Selecionando ano
-    _  , ano = funcao_data(False)
+    ano = ano_importacao
     year = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f"//mat-option[.//span[normalize-space()='{ano}']]")
@@ -146,7 +146,7 @@ def gerando_relatorio(wait,funcao_data):
 
     return True
 
-def exportando_computador(driver, wait, timeout=180):
+def exportando_computador(driver, wait, timeout=200):
 
      # Espera o overlay desaparecer
     wait.until(
@@ -165,7 +165,7 @@ def exportando_computador(driver, wait, timeout=180):
     element_correto.click()
     return arquivos_antes
 
-def aguardar_novo_download(arquivos_antes, timeout=180):
+def aguardar_novo_download(arquivos_antes, timeout=200):
     """Retorna o CSV de crítica criado nesta execução após ele estabilizar."""
     limite = time.monotonic() + timeout
     ultimo_tamanho = {}
@@ -186,7 +186,7 @@ def aguardar_novo_download(arquivos_antes, timeout=180):
                 return arquivo
             ultimo_tamanho[arquivo] = tamanho_atual
 
-        time.sleep(1)
+        time.sleep(2)
 
     raise TimeoutError(
         f"Nenhum novo CSV de críticas foi concluído em {timeout} segundos."

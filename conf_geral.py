@@ -20,38 +20,29 @@ meses = {
         12:"Dezembro"
         }
 
-def data_referencia(maiusculo = False):
-    data_atual = date.today()
-    mes_ref = data_atual.month
+def data_atual():
+    data_base = date.today()
+    mes_ref = data_base.month
+    ano_ref = data_base.year
+    dia_ref = data_base.day
+    return ano_ref, mes_ref, dia_ref
 
+def data_referencia(mes_ref, ano_ref):
     mes_importacao = meses[mes_ref]
-    ano_importacao = data_atual.year
-
-    if maiusculo:
-        mes_importacao = meses[mes_ref].upper()
-        return mes_importacao, ano_importacao
-    
+    ano_importacao = ano_ref 
     return mes_importacao, ano_importacao
 
-def data_anterior(maiusculo = False):
-    data_atual = date.today()
-    mes_atual = data_atual.month
-    ano_atual = data_atual.year
+def data_anterior(mes_ref, ano_ref):
+    mes_atual = mes_ref
+    ano_atual = ano_ref
     
     if mes_atual == 1:
         mes_ref = 12
         mes_importacao = meses[mes_ref]
         ano_importacao = ano_atual - 1
-        if maiusculo:
-            mes_importacao = mes_importacao.upper()
         return mes_importacao, ano_importacao
         
     mes_ref = mes_atual - 1
     mes_importacao = meses[mes_ref]
     ano_importacao = ano_atual
-    
-    if maiusculo:
-        mes_importacao = mes_importacao.upper()
-        return mes_importacao, ano_importacao
-    
     return mes_importacao, ano_importacao

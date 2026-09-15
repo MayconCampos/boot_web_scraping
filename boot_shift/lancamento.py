@@ -79,7 +79,7 @@ def aba_apuracao(driver,wait):
 
     selecionando_apuracao.click()
 
-def importando_critica(wait,funcao_data):
+def importando_critica(wait,mes_importacao, ano_importacao):
     #Subindo o arquivo critica
 
     #Desativando o botão de "Apuração Ativa?"
@@ -101,7 +101,7 @@ def importando_critica(wait,funcao_data):
     drop_dall_campo_ciclo.click()
 
     #Selecionando o ciclo
-    _ , ano = funcao_data(True)
+    ano =  ano_importacao
     drop_dall_ciclo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f'//span[normalize-space()="REFORMULACAO-{ano}"]')
@@ -110,9 +110,9 @@ def importando_critica(wait,funcao_data):
 
     drop_dall_ciclo.click()
 
-    #Selecionando o mês de Agosto
-    mes, _= funcao_data(True)
-   
+    #Tratando mês de importação
+    mes = mes_importacao
+    mes = mes.upper()
     lupa_mes_desejado = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, f'//tr[.//td[normalize-space()="{mes}"]]//button[@ptooltip="Detalhar"]')
