@@ -4,9 +4,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
 import time
+import os
 from config import DATACG_LOGIN, DATACG_PASSWORD
 
-PASTA_DOWNLOAD = Path(r"C:\Users\manoel.campos\Downloads")
+PASTA_DOWNLOAD =  os.path.join(os.path.expanduser("~"),"Downloads")
+PASTA_DOWNLOAD = Path(PASTA_DOWNLOAD)
 
 def abrir_navegador():
     driver = webdriver.Chrome()
@@ -162,6 +164,7 @@ def exportando_computador(driver, wait, timeout=200):
         )
     )
     arquivos_antes = {arquivo.name for arquivo in PASTA_DOWNLOAD.iterdir()}
+
     element_correto.click()
     return arquivos_antes
 

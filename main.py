@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(mes
 ano_ref, mes_ref, dia_ref = data_atual()
 
 if __name__ == "__main__":
-    if dia_ref < 16:
+    if dia_ref < 18:
         for loop in range(2):
             if loop == 0:
                 mes_importacao, ano_importacao = data_anterior(mes_ref,ano_ref)

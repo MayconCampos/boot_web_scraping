@@ -1,6 +1,6 @@
 import os
 
-pasta = r"C:\Users\manoel.campos\Downloads"
+pasta = os.path.join(os.path.expanduser("~"),"Downloads")
 
 def criticas_downloads():
     arquivos = os.listdir(pasta)

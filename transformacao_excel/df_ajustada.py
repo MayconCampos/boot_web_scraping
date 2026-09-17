@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 def ajuste_base(caminho):
     df_critica_sge_pura = pd.read_csv(caminho, sep=',', dtype='str')
@@ -59,7 +60,8 @@ def regras_negocio(df_reordenada):
     return df_reordenada
 
 def exportando_excel(df_reordenada):
-    caminho_saida = r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoDATACG\transformacao_excel\Critica_SGE.xlsx"
+    caminho_pasta = os.path.dirname(__file__)
+    caminho_saida = os.path.join(caminho_pasta,"Critica_SGE.xlsx")
     df_reordenada.to_excel(caminho_saida, index=False,engine="xlsxwriter")
     print(f"Arquivo ajustado para envio: {caminho_saida}")
     return caminho_saida

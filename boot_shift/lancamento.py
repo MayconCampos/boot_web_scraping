@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import time
+import os
 from config import SHIFT_LOGIN, SHIFT_PASSWORD
 
 def abrir_navegador():
@@ -151,8 +152,16 @@ def anexando_critica(driver, wait):
 
     # Envia o arquivo diretamente ao input. Não clicar no dropzone evita abrir
     # a janela nativa do Windows, que o Selenium não consegue fechar.
-    caminho_arquivo = r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoDATACG\transformacao_excel\Critica_SGE.xlsx"
+    #caminho_arquivo = r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoDATACG\transformacao_excel\Critica_SGE.xlsx"
+    pasta_atual = os.path.dirname(__file__)
+    raiz_projeto = os.path.dirname(pasta_atual)
 
+    caminho_arquivo = os.path.join(
+        raiz_projeto,
+        "transformacao_excel",
+        "Critica_SGE.xlsx"
+    )
+    
     input_arquivo = wait.until(
         EC.presence_of_element_located(
             (
