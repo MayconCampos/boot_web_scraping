@@ -18,21 +18,6 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## Credenciais
-
-Nunca armazene logins ou senhas no Git. O arquivo `.gitignore` ignora `.env`, `credentials.json`, `secrets.json` e `config.local.py` para que arquivos locais de credenciais não sejam versionados.
-
-Crie um arquivo `.env` na raiz do projeto com as variáveis abaixo:
-
-```env
-DATACG_LOGIN=seu_login_datacg
-DATACG_PASSWORD=sua_senha_datacg
-SHIFT_LOGIN=seu_login_shift
-SHIFT_PASSWORD=sua_senha_shift
-```
-
-O arquivo `.env` local já foi configurado neste computador. Antes de enviar este projeto a um repositório remoto, revogue ou troque as senhas que já tenham sido expostas no histórico do Git.
-
 ## Execução
 
 Com o ambiente virtual ativado:
