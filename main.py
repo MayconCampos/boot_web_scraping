@@ -2,6 +2,7 @@ import logging
 from boot_extracao.disparar_extracao import disparar_extracao
 from Ajuste_base_critica.disparar_excel import disparar_ajuste
 from boot_shift.disparar_shift import disparar_critica
+from boot_consolidado import disparar_extracao_consolidado
 from conf_geral import data_referencia , data_anterior, data_atual
 \
 # Configura o registro de eventos e obtém a data que define o período de processamento.

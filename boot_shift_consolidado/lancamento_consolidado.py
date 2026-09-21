@@ -155,25 +155,15 @@ def anexando_critica(driver, wait):
 
     botao_selecionar_arquivo = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, '//p-toolbar[@class="p-element"]//button[@title="Upload Dados"]')
+            (By.XPATH, '//button[@icon="pi pi-chevron-down"]')
         )
     )
 
     botao_selecionar_arquivo.click()
 
-
     botao_selecionar_arquivo = wait.until(
         EC.element_to_be_clickable(
-            (By.XPATH, '//p-dropdown[@placeholder="Selecione a origem"]//span[normalize-space()="Selecione a origem"]')
-        )
-    )
-
-    botao_selecionar_arquivo.click()
-
-
-    botao_selecionar_arquivo = wait.until(
-        EC.element_to_be_clickable(
-            (By.XPATH, '//div[@class="p-dropdown-items-wrapper"]//li[@aria-label="SI - CRÍTICAS PRODUÇÃO EPS"]')
+            (By.XPATH, '//span[contains(@class, "p-menuitem-text") and normalize-space()="Produção EPS"]')
         )
     )
 
@@ -187,15 +177,15 @@ def anexando_critica(driver, wait):
 
     caminho_arquivo = os.path.join(
         raiz_projeto,
-        "Ajuste_base_critica",
-        "Critica_SGE.xlsx"
+        "Ajuste_base_consolidado",
+        "Resultado_oficial_consolidado.xlsx"
     )
 
     input_arquivo = wait.until(
         EC.presence_of_element_located(
             (
                 By.XPATH,
-                '//*[@class="upload-dropzone"]//input[@type="file"]'
+                '//input[@formcontrolname="arquivo" and @type="file"]'
             )
         )
     )
@@ -217,7 +207,7 @@ def anexando_critica(driver, wait):
         EC.visibility_of_element_located(
             (
                 By.XPATH,
-                "//p-toastitem[contains(., 'Sucesso!') and contains(., 'Item incluído com sucesso!')]",
+                "//p-toastitem[contains(., 'Sucesso!')"
             )
         )
     )
