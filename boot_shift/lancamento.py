@@ -213,5 +213,14 @@ def anexando_critica(driver, wait):
     )
 
     botao_salvar.click()
-    print('Fim do processo arquivo publicado')
-    time.sleep(60)
+ 
+    wait.until(
+        EC.visibility_of_element_located(
+            (
+                By.XPATH,
+                "//p-toastitem[contains(., 'Sucesso!') and contains(., 'Item incluído com sucesso!')]",
+            )
+        )
+    )
+
+    print("Arquivo publicado com sucesso.")
