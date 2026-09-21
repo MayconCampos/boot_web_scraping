@@ -9,6 +9,12 @@ from .extracao import (
 )
 
 def disparar_extracao(mes_importacao, ano_importacao):
+    """Resumo: Executa o fluxo completo de extração do relatório de críticas.
+
+    Parâmetros: mes_importacao (str), mês a extrair; ano_importacao (int), ano a extrair.
+
+    Retorno: Caminho do arquivo baixado ou None quando a extração falha.
+    """
     driver = None
     try:
         driver, wait = abrir_navegador()
@@ -27,4 +33,5 @@ def disparar_extracao(mes_importacao, ano_importacao):
             driver.quit()
 
 if __name__ == "__main__":
+    # Permite executar este módulo isoladamente durante testes manuais.
     disparar_extracao()

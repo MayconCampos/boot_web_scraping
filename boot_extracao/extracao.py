@@ -7,17 +7,30 @@ import time
 import os
 from config import DATACG_LOGIN, DATACG_PASSWORD
 
+# Define a pasta padrão em que o navegador salva os relatórios extraídos.
 PASTA_DOWNLOAD =  os.path.join(os.path.expanduser("~"),"Downloads")
 PASTA_DOWNLOAD = Path(PASTA_DOWNLOAD)
 
 def abrir_navegador():
+    """Resumo: Abre o navegador Chrome na página de login do DataCG.
+
+    Parâmetros: Nenhum.
+
+    Retorno: Tupla com o navegador Selenium e sua espera explícita.
+    """
     driver = webdriver.Chrome()
     driver.maximize_window()
     driver.get("https://datacg.sistemaindustria.com.br/login")
     wait = WebDriverWait(driver, 20)
-    return driver,wait 
+    return driver,wait
 
 def login_sistema(wait):
+    """Resumo: Autentica o usuário no sistema DataCG.
+
+    Parâmetros: wait (WebDriverWait), espera explícita do Selenium.
+
+    Retorno: True após o acionamento do login.
+    """
     login_email = wait.until(
         EC.element_to_be_clickable((By.ID, "mat-input-0"))
     )
@@ -37,8 +50,14 @@ def login_sistema(wait):
     login_button.click()
     return True
 
-# Dropdown de perfis de acesso
+
 def perfis_acesso(wait):
+    """Resumo: Seleciona o perfil de acesso de produção no DataCG.
+
+    Parâmetros: wait (WebDriverWait), espera explícita do Selenium.
+
+    Retorno: True após confirmar o perfil selecionado.
+    """
     access_profile = wait.until(
         EC.element_to_be_clickable(
             (By.CLASS_NAME, "full-width-input")
@@ -47,7 +66,7 @@ def perfis_acesso(wait):
     access_profile.click()
 
 
-    # Selecionando perfil
+
     system_profile = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//mat-option[.//span[normalize-space()='DL- Produção EP']]")
@@ -55,7 +74,7 @@ def perfis_acesso(wait):
     )
     system_profile.click()
 
-    # Entrando no sistema
+
     profile_confirm = wait.until(
         EC.element_to_be_clickable(
             (By.CLASS_NAME, 'submit-btn')
@@ -65,7 +84,13 @@ def perfis_acesso(wait):
     return True
 
 def gerando_relatorio(wait,mes_importacao, ano_importacao):
-    # Menu do relatório
+    """Resumo: Configura e confirma a geração do relatório de críticas.
+
+    Parâmetros: wait (WebDriverWait), espera do Selenium; mes_importacao (str), mês; ano_importacao (int), ano.
+
+    Retorno: True após confirmar os filtros do relatório.
+    """
+
     menu_report = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH,"//button[@title='Relatórios']")
@@ -73,18 +98,18 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
     )
     menu_report.click()
 
-    #clicando no +
+
     more = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//button[@routerlink='cadastrar']")
             )
     )
     more.click()
-    # O modal Angular precisa concluir a renderização antes de abrir o select.
-    # Esta espera fazia parte do fluxo que funcionava anteriormente.
+
+
     time.sleep(0.5)
 
-    #Selecionando o dropdown
+
     cargo_type = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//mat-select[@placeholder='Tipo de carga']//div[contains(@class,'mat-select-trigger')]")
@@ -92,7 +117,7 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
     )
     cargo_type.click()
 
-    #Selecionando critica
+
     campo_critica = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//mat-option[.//span[normalize-space()='Críticas']]")
@@ -100,7 +125,7 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
     )
     campo_critica.click()
 
-    #Selecionando campo mês
+
     month_field = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//mat-select[@placeholder='Mês']")
@@ -108,7 +133,7 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
     )
     month_field.click()
 
-    #Selecionando mês
+
     mes = mes_importacao
     month = wait.until(
         EC.element_to_be_clickable(
@@ -118,7 +143,7 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
 
     month.click()
 
-    #Selecionando campo ano
+
     year_field = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//mat-select[@placeholder='Ano']")
@@ -127,7 +152,7 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
 
     year_field.click()
 
-    #Selecionando ano
+
     ano = ano_importacao
     year = wait.until(
         EC.element_to_be_clickable(
@@ -137,11 +162,11 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
 
     year.click()
 
-    #confirmando filtros
+
     confirm_button = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, "//biview-export-dialog//button[contains(@class, 'submit-btn')]")
-        )       
+        )
     )
 
     confirm_button.click()
@@ -149,15 +174,21 @@ def gerando_relatorio(wait,mes_importacao, ano_importacao):
     return True
 
 def exportando_computador(driver, wait, timeout=200):
+    """Resumo: Inicia a exportação do relatório para o computador.
 
-     # Espera o overlay desaparecer
+    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera; timeout (int), limite em segundos.
+
+    Retorno: Conjunto com os nomes de arquivos existentes antes do download.
+    """
+
+
     wait.until(
         EC.invisibility_of_element_located(
             (By.CSS_SELECTOR, ".cdk-overlay-backdrop")
         )
     )
 
-    # Importando o arquivo para o computador
+
     element_correto = WebDriverWait(driver, timeout).until(
         EC.element_to_be_clickable(
             (By.XPATH, '//*[@id="main-container"]/biview-export-list/div/biview-table-list-content/div/table/tbody/tr[1]/td[6]/button')
@@ -169,7 +200,12 @@ def exportando_computador(driver, wait, timeout=200):
     return arquivos_antes
 
 def aguardar_novo_download(arquivos_antes, timeout=200):
-    """Retorna o CSV de crítica criado nesta execução após ele estabilizar."""
+    """Resumo: Aguarda a conclusão e estabilização do novo CSV de críticas.
+
+    Parâmetros: arquivos_antes (set), arquivos existentes antes da exportação; timeout (int), limite em segundos.
+
+    Retorno: Caminho do CSV novo concluído.
+    """
     limite = time.monotonic() + timeout
     ultimo_tamanho = {}
 

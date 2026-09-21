@@ -9,6 +9,12 @@ from .df_ajustada import (
 )
 
 def disparar_ajuste(caminho=None):
+    """Resumo: Transforma o CSV de críticas e gera a planilha de envio.
+
+    Parâmetros: caminho (str | None), caminho opcional do CSV de origem.
+
+    Retorno: Caminho da planilha gerada ou False quando a transformação falha.
+    """
     try:
         if caminho is None:
             caminho, status = buscar_ultima_critica()
@@ -22,4 +28,5 @@ def disparar_ajuste(caminho=None):
         return False
 
 if __name__ == "__main__":
+    # Permite executar a transformação isoladamente durante testes manuais.
     disparar_ajuste()

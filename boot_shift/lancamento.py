@@ -8,6 +8,12 @@ import os
 from config import SHIFT_LOGIN, SHIFT_PASSWORD
 
 def abrir_navegador():
+    """Resumo: Abre o navegador Edge na página de login do Shift.
+
+    Parâmetros: Nenhum.
+
+    Retorno: Tupla com o navegador Selenium e sua espera explícita.
+    """
     driver = webdriver.Edge()
     driver.maximize_window()
     driver.get("https://shift.sfiemt.ind.br:8043/login")
@@ -15,7 +21,13 @@ def abrir_navegador():
     return driver, wait
 
 def login(wait):
-    #Campo email
+    """Resumo: Autentica o usuário no sistema Shift.
+
+    Parâmetros: wait (WebDriverWait), espera explícita do Selenium.
+
+    Retorno: Nenhum.
+    """
+
     login_email = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//div[@class="login"]//input[@placeholder="Usuário"]')
@@ -23,7 +35,7 @@ def login(wait):
     )
     login_email.send_keys(SHIFT_LOGIN)
 
-    #Campo senha
+
     login_password = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//div[@class="login"]//input[@placeholder="Senha"]')
@@ -31,7 +43,7 @@ def login(wait):
     )
     login_password.send_keys(SHIFT_PASSWORD)
 
-    #Logando no sistema
+
     login_button = wait.until(
         EC.element_to_be_clickable(
             (By.CLASS_NAME, "p-button-label")
@@ -41,7 +53,13 @@ def login(wait):
     login_button.click()
 
 def aba_apuracao(driver,wait):
-    #Scroll do menu lateral
+    """Resumo: Navega pelo menu do Shift até a área de apurações.
+
+    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita.
+
+    Retorno: Nenhum.
+    """
+
     menu = wait.until(
         EC.visibility_of_element_located(
             (By.XPATH, "/html/body/app-root/app-main/div/div[1]")
@@ -53,7 +71,7 @@ def aba_apuracao(driver,wait):
         menu
     )
 
-    #Primeiro menu para clicar
+
     drop_dall_gestao_estrategia = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//div[@class="menu-scroll-content"]//ul//li//span[normalize-space()="Gestão Estratégica"]')
@@ -62,7 +80,7 @@ def aba_apuracao(driver,wait):
 
     drop_dall_gestao_estrategia.click()
 
-    #Segundo menu para clicar
+
     drop_dall_gestao_relarotio_gerencial = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//span[normalize-space()="Relatório Gerencial"]')
@@ -71,7 +89,7 @@ def aba_apuracao(driver,wait):
 
     drop_dall_gestao_relarotio_gerencial.click()
 
-    #Segundo menu para clicar
+
     selecionando_apuracao = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//span[normalize-space()="Apurações"]')
@@ -81,9 +99,15 @@ def aba_apuracao(driver,wait):
     selecionando_apuracao.click()
 
 def importando_critica(wait,mes_importacao, ano_importacao):
-    #Subindo o arquivo critica
+    """Resumo: Seleciona o ciclo e o período da crítica a importar.
 
-    #Desativando o botão de "Apuração Ativa?"
+    Parâmetros: wait (WebDriverWait), espera; mes_importacao (str), mês; ano_importacao (int), ano.
+
+    Retorno: Nenhum.
+    """
+
+
+
     selecionando_apuracao = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//p-checkbox/div/div[2]/span')
@@ -92,7 +116,7 @@ def importando_critica(wait,mes_importacao, ano_importacao):
 
     selecionando_apuracao.click()
 
-    #Selecionando o dropdown de ciclo
+
     drop_dall_campo_ciclo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//*[@id="pr_id_11_label"]')
@@ -101,7 +125,7 @@ def importando_critica(wait,mes_importacao, ano_importacao):
 
     drop_dall_campo_ciclo.click()
 
-    #Selecionando o ciclo
+
     ano =  ano_importacao
     drop_dall_ciclo = wait.until(
         EC.element_to_be_clickable(
@@ -111,7 +135,7 @@ def importando_critica(wait,mes_importacao, ano_importacao):
 
     drop_dall_ciclo.click()
 
-    #Tratando mês de importação
+
     mes = mes_importacao
     mes = mes.upper()
     lupa_mes_desejado = wait.until(
@@ -123,7 +147,13 @@ def importando_critica(wait,mes_importacao, ano_importacao):
     lupa_mes_desejado.click()
 
 def anexando_critica(driver, wait):
-    #Janela para subir arquivo
+    """Resumo: Anexa a planilha de críticas e confirma seu envio ao Shift.
+
+    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita.
+
+    Retorno: Nenhum.
+    """
+
     botao_selecionar_arquivo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//p-toolbar[@class="p-element"]//button[@title="Upload Dados"]')
@@ -132,7 +162,7 @@ def anexando_critica(driver, wait):
 
     botao_selecionar_arquivo.click()
 
-    #Selcionando Origem
+
     botao_selecionar_arquivo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//p-dropdown[@placeholder="Selecione a origem"]//span[normalize-space()="Selecione a origem"]')
@@ -141,7 +171,7 @@ def anexando_critica(driver, wait):
 
     botao_selecionar_arquivo.click()
 
-    #Selecionando origem 
+
     botao_selecionar_arquivo = wait.until(
         EC.element_to_be_clickable(
             (By.XPATH, '//div[@class="p-dropdown-items-wrapper"]//li[@aria-label="SI - CRÍTICAS PRODUÇÃO EPS"]')
@@ -150,9 +180,9 @@ def anexando_critica(driver, wait):
 
     botao_selecionar_arquivo.click()
 
-    # Envia o arquivo diretamente ao input. Não clicar no dropzone evita abrir
-    # a janela nativa do Windows, que o Selenium não consegue fechar.
-    #caminho_arquivo = r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoDATACG\transformacao_excel\Critica_SGE.xlsx"
+
+
+
     pasta_atual = os.path.dirname(__file__)
     raiz_projeto = os.path.dirname(pasta_atual)
 
@@ -161,7 +191,7 @@ def anexando_critica(driver, wait):
         "transformacao_excel",
         "Critica_SGE.xlsx"
     )
-    
+
     input_arquivo = wait.until(
         EC.presence_of_element_located(
             (
@@ -173,7 +203,7 @@ def anexando_critica(driver, wait):
 
     input_arquivo.send_keys(caminho_arquivo)
 
-    #Salvando arquivo
+
     botao_salvar = WebDriverWait(
         driver, 20, ignored_exceptions=(StaleElementReferenceException,)
     ).until(

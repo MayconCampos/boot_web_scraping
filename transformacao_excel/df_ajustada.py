@@ -2,6 +2,12 @@ import pandas as pd
 import os
 
 def ajuste_base(caminho):
+    """Resumo: Renomeia e reordena as colunas da crítica importada.
+
+    Parâmetros: caminho (str), caminho do CSV de críticas.
+
+    Retorno: DataFrame com as colunas padronizadas para processamento.
+    """
     df_critica_sge_pura = pd.read_csv(caminho, sep=',', dtype='str')
     
     df_renomeada = df_critica_sge_pura.rename(
@@ -33,6 +39,12 @@ def ajuste_base(caminho):
     return df_reordenada
 
 def regras_negocio(df_reordenada):
+    """Resumo: Aplica as regras de tratamento das colunas CHAVE.
+
+    Parâmetros: df_reordenada (DataFrame), crítica com colunas reordenadas.
+
+    Retorno: DataFrame tratado conforme as regras de negócio.
+    """
     posicoes = [i for i, coluna in enumerate(df_reordenada.columns) if coluna == "CHAVE"]
     posicao = posicoes[-1]
 
@@ -60,6 +72,12 @@ def regras_negocio(df_reordenada):
     return df_reordenada
 
 def exportando_excel(df_reordenada):
+    """Resumo: Exporta a crítica tratada para a planilha de envio.
+
+    Parâmetros: df_reordenada (DataFrame), dados tratados para exportação.
+
+    Retorno: Caminho da planilha Excel gerada.
+    """
     caminho_pasta = os.path.dirname(__file__)
     caminho_saida = os.path.join(caminho_pasta,"Critica_SGE.xlsx")
     df_reordenada.to_excel(caminho_saida, index=False,engine="xlsxwriter")
