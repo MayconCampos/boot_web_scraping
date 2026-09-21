@@ -29,7 +29,7 @@ python main.py
 O fluxo executa as etapas abaixo:
 
 1. Baixa o CSV de críticas do DATACG.
-2. Cria `transformacao_excel\Critica_SGE.xlsx` usando `XlsxWriter`.
+2. Cria `Ajuste_base_critica\Critica_SGE.xlsx` usando `XlsxWriter`.
 3. Envia a planilha ao Shift.
 
 ## Gerar executável

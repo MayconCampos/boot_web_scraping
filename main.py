@@ -1,6 +1,6 @@
 import logging
 from boot_extracao.disparar_extracao import disparar_extracao
-from transformacao_excel.disparar_excel import disparar_ajuste
+from Ajuste_base_critica.disparar_excel import disparar_ajuste
 from boot_shift.disparar_shift import disparar_critica
 from conf_geral import data_referencia , data_anterior, data_atual
 \

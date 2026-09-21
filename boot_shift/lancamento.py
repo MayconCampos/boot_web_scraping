@@ -188,7 +188,7 @@ def anexando_critica(driver, wait):
 
     caminho_arquivo = os.path.join(
         raiz_projeto,
-        "transformacao_excel",
+        "Ajuste_base_critica",
         "Critica_SGE.xlsx"
     )
 
