@@ -13,8 +13,8 @@ secrets.json
 config.local.py
 
 # Saídas e arquivos temporários da automação
-transformacao_excel/*.xlsx
-!transformacao_excel/.gitkeep
+Ajuste_base_critica/*.xlsx
+Ajuste_base_consolidado/*.xlsx
 build/
 dist/
 *.spec
@@ -24,11 +24,5 @@ dist/
 .idea/
 desktop.ini
 
-#Tirando o Excel do git para não apitar sempre que o código rodar
-transformacao_excel/Critica_SGE.xlsx
-*.pyc/
-__pycache__
-
-#Tirando o Arquivo usado para teste
+# Arquivo usado para testes locais
 testes_antes_implementacao.py
-transformacao_excel/NOVO.xlsx
