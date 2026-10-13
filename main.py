@@ -44,11 +44,11 @@ def fluxo_consolidado(mes, ano):
 
 
 def executar(hoje=None, executar_criticas=None, executar_consolidado=None):
-    """Resumo: Processa as críticas e, no dia 20, executa depois o consolidado nos mesmos períodos.
+    """Resumo: Processa as críticas e, no dia 20, tenta depois o consolidado do mês anterior, mesmo se as críticas falharem.
 
     Parâmetros: hoje (date, opcional), data da execução; executar_criticas e executar_consolidado (funções, opcionais), substituições para testes sem acesso aos sistemas.
 
-    Retorno: Nenhum. Antes do dia 18 processa o mês anterior e o atual; nos demais dias, somente o atual.
+    Retorno: Nenhum em caso de sucesso. Ao final, levanta RuntimeError com os fluxos que falharam. As críticas processam o mês anterior e o atual antes do dia 18; nos demais dias, somente o atual. Esta função depende de uma chamada externa e não agenda sua própria execução.
     """
     hoje = hoje or date.today()
     executar_criticas = executar_criticas or fluxo_criticas
@@ -57,16 +57,34 @@ def executar(hoje=None, executar_criticas=None, executar_consolidado=None):
     if hoje.day < 18:
         periodos.append(data_anterior(hoje.month, hoje.year))
     periodos.append(data_referencia(hoje.month, hoje.year))
+    falhas = []
 
     for mes, ano in periodos:
         logging.info('Processando críticas: %s/%s', mes, ano)
-        executar_criticas(mes, ano)
+        try:
+            executar_criticas(mes, ano)
+        except Exception:
+            logging.exception('Falha nas críticas: %s/%s', mes, ano)
+            falhas.append(f'Críticas {mes}/{ano}')
+        else:
+            logging.info('Críticas concluídas: %s/%s', mes, ano)
 
     if hoje.day == 20:
         mes, ano = data_anterior(hoje.month, hoje.year)
-        for mes, ano in periodos:
-            logging.info('Processando consolidado: %s/%s', mes, ano)
+        logging.info('Processando consolidado: %s/%s', mes, ano)
+        try:
             executar_consolidado(mes, ano)
+        except Exception:
+            logging.exception('Falha no consolidado: %s/%s', mes, ano)
+            falhas.append(f'Consolidado {mes}/{ano}')
+        else:
+            logging.info('Consolidado concluído: %s/%s', mes, ano)
+    else:
+        logging.info('Consolidado não executado: a execução mensal ocorre no dia 20.')
+
+    if falhas:
+        raise RuntimeError('Execução encerrada com falhas: ' + '; '.join(falhas))
+    logging.info('Todos os fluxos previstos para hoje foram concluídos.')
 
 
 if __name__ == '__main__':
@@ -74,5 +92,5 @@ if __name__ == '__main__':
     try:
         executar()
     except Exception:
-        logging.exception('Fluxo interrompido. Verifique a etapa antes de repetir o envio.')
+        logging.exception('Execução com falha. Consulte os registros antes de repetir qualquer envio.')
         raise SystemExit(1)
