@@ -1,12 +1,13 @@
 import pyodbc
 import pandas as pd
+from config import LOGIN_DB, PASSWORD_DB
 
 def connection_in_base():
     connection = pyodbc.connect(
         "Driver={ODBC Driver 18 for SQL Server};"
         "Server=10.52.28.105;"
-        "UID=shift.suporte;"
-        "PWD=Sh1ft-SUp0rt3-Yhz20;"
+        f"UID={LOGIN_DB};"
+        f"PWD={PASSWORD_DB};"
         "TrustServerCertificate=yes"
     )
     
