@@ -1,3 +1,4 @@
+# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,7 +17,7 @@ def abrir_navegador():
     driver = webdriver.Edge()
     driver.maximize_window()
     driver.get("https://shift.sfiemt.ind.br:8043/login")
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 60)
     return driver, wait
 
 def login(wait):
@@ -145,7 +146,7 @@ def importando_critica(wait,mes_importacao, ano_importacao):
 
     lupa_mes_desejado.click()
 
-def anexando_critica(driver, wait):
+def anexando_critica(driver, wait, caminho_arquivo):
     """Resumo: Anexa a planilha de críticas e confirma seu envio ao Shift.
 
     Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita.
@@ -182,14 +183,9 @@ def anexando_critica(driver, wait):
 
 
 
-    pasta_atual = os.path.dirname(__file__)
-    raiz_projeto = os.path.dirname(pasta_atual)
-
-    caminho_arquivo = os.path.join(
-        raiz_projeto,
-        "Ajuste_base_critica",
-        "Critica_SGE.xlsx"
-    )
+    # Alterado pelo Codex: envia exatamente o Excel gerado nesta execução.
+    from pathlib import Path
+    caminho_arquivo = str(Path(caminho_arquivo).resolve(strict=True))
 
     input_arquivo = wait.until(
         EC.presence_of_element_located(
@@ -204,7 +200,7 @@ def anexando_critica(driver, wait):
 
 
     botao_salvar = WebDriverWait(
-        driver, 20, ignored_exceptions=(StaleElementReferenceException,)
+        driver, 60, ignored_exceptions=(StaleElementReferenceException,)
     ).until(
         EC.element_to_be_clickable(
             (By.XPATH,'//button[.//span[normalize-space()="Salvar"]]')

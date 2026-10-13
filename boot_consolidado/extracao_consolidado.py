@@ -1,3 +1,4 @@
+# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -18,7 +19,13 @@ def abrir_navegado():
 
     Retorno: Tupla com o navegador Selenium e sua espera explícita.
     """
-    driver = webdriver.Chrome()
+    # Alterado pelo Codex: o navegador usa a mesma pasta monitorada pelo download.
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('prefs', {
+        'download.default_directory': str(PASTA_DOWNLOAD.resolve()),
+        'download.prompt_for_download': False,
+    })
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.get("https://datacg.sistemaindustria.com.br/login")
     wait = WebDriverWait(driver, 20)
