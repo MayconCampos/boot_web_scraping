@@ -1,4 +1,3 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -99,7 +98,7 @@ def aba_apuracao(driver,wait):
     selecionando_apuracao.click()
 
 def importando_critica(wait,mes_importacao, ano_importacao):
-    """Resumo: Seleciona o ciclo e o período da crítica a importar.
+    """Resumo: Seleciona o ciclo e o período do consolidado a importar.
 
     Parâmetros: wait (WebDriverWait), espera; mes_importacao (str), mês; ano_importacao (int), ano.
 
@@ -147,11 +146,11 @@ def importando_critica(wait,mes_importacao, ano_importacao):
     lupa_mes_desejado.click()
 
 def anexando_critica(driver, wait, caminho_arquivo):
-    """Resumo: Anexa a planilha de críticas e confirma seu envio ao Shift.
+    """Resumo: Anexa a planilha de consolidado e aguarda a confirmação de envio ao Shift.
 
-    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita.
+    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita; caminho_arquivo (str ou Path), Excel a enviar.
 
-    Retorno: Nenhum.
+    Retorno: Nenhum. Gera erro se o arquivo não existir ou a confirmação não aparecer.
     """
 
     botao_selecionar_arquivo = wait.until(
@@ -170,10 +169,6 @@ def anexando_critica(driver, wait, caminho_arquivo):
 
     botao_selecionar_arquivo.click()
 
-
-
-
-    # Alterado pelo Codex: envia exatamente o Excel gerado nesta execução.
     from pathlib import Path
     caminho_arquivo = str(Path(caminho_arquivo).resolve(strict=True))
 

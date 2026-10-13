@@ -1,4 +1,3 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -147,11 +146,11 @@ def importando_critica(wait,mes_importacao, ano_importacao):
     lupa_mes_desejado.click()
 
 def anexando_critica(driver, wait, caminho_arquivo):
-    """Resumo: Anexa a planilha de críticas e confirma seu envio ao Shift.
+    """Resumo: Anexa a planilha de críticas e aguarda a confirmação de envio ao Shift.
 
-    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita.
+    Parâmetros: driver (WebDriver), navegador ativo; wait (WebDriverWait), espera explícita; caminho_arquivo (str ou Path), Excel a enviar.
 
-    Retorno: Nenhum.
+    Retorno: Nenhum. Gera erro se o arquivo não existir ou a confirmação não aparecer.
     """
 
     botao_selecionar_arquivo = wait.until(
@@ -183,7 +182,6 @@ def anexando_critica(driver, wait, caminho_arquivo):
 
 
 
-    # Alterado pelo Codex: envia exatamente o Excel gerado nesta execução.
     from pathlib import Path
     caminho_arquivo = str(Path(caminho_arquivo).resolve(strict=True))
 

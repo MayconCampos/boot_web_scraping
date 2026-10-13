@@ -1,4 +1,3 @@
-# Alterado pelo Codex: removida a dependência não utilizada do IPython.
 import pyodbc
 import pandas as pd
 

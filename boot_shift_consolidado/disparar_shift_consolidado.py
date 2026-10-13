@@ -1,4 +1,3 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 import logging
 
 from .lancamento_consolidado import (
@@ -10,11 +9,11 @@ from .lancamento_consolidado import (
 )
 
 def disparar_critica_consolidado(mes_importacao, ano_importacao, caminho_arquivo):
-    """Resumo: Executa o envio da crítica processada ao sistema Shift.
+    """Resumo: Executa o envio do consolidado processado ao sistema Shift.
 
-    Parâmetros: mes_importacao (str), mês da crítica; ano_importacao (int), ano da crítica.
+    Parâmetros: mes_importacao (str), mês; ano_importacao (int), ano; caminho_arquivo (str ou Path), Excel gerado nesta execução.
 
-    Retorno: True quando o envio termina com sucesso; False em caso de falha.
+    Retorno: True após a confirmação de sucesso; False em falhas de envio. Arquivo inexistente gera erro antes de abrir o navegador.
     """
     from pathlib import Path
     caminho_arquivo = Path(caminho_arquivo).resolve(strict=True)

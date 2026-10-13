@@ -8,7 +8,7 @@ def criticas_downloads():
 
     Parâmetros: Nenhum.
 
-    Retorno: Lista com os nomes dos arquivos de crítica encontrados.
+    Retorno: Lista com os nomes dos arquivos do consolidado encontrados.
     """
     arquivos = os.listdir(pasta)
     lista_arquivos_critica = []
@@ -19,7 +19,7 @@ def criticas_downloads():
     return lista_arquivos_critica
 
 def caminhos_completos(lista_arquivos_critica):
-    """Resumo: Constrói os caminhos completos dos arquivos de crítica.
+    """Resumo: Constrói os caminhos completos dos arquivos do consolidado.
 
     Parâmetros: lista_arquivos_critica (list), nomes dos arquivos encontrados.
 
@@ -33,7 +33,7 @@ def caminhos_completos(lista_arquivos_critica):
     return lista_caminhos_completos
 
 def arquivo_recente(lista_caminho):
-    """Resumo: Identifica o arquivo de crítica modificado mais recentemente.
+    """Resumo: Identifica o arquivo do consolidado modificado mais recentemente.
 
     Parâmetros: lista_caminho (list), caminhos dos arquivos candidatos.
 

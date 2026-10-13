@@ -1,10 +1,14 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from pathlib import Path
 import pandas as pd
 
 
 def transformar_consolidado(caminho_csv, df_analysis):
-    """Transforma o CSV informado; não acessa o banco e não envia arquivos."""
+    """Resumo: Transforma os dados do Resultado Oficial no layout de envio do consolidado.
+
+    Parâmetros: caminho_csv (str ou Path), CSV desta execução; df_analysis (DataFrame), relação de unidades e centros de custo.
+
+    Retorno: DataFrame com as 50 colunas ordenadas, identificadores preservados e datas convertidas.
+    """
     df_analysis = df_analysis.copy()
     df_analysis['COD_UNIDADE_ATENDIMENTO'] = df_analysis['COD_UNIDADE_ATENDIMENTO'].astype('string').str.strip()
     df_eps = pd.read_csv(
@@ -274,10 +278,14 @@ def transformar_consolidado(caminho_csv, df_analysis):
 
 
 def disparar_ajuste_consolidado(caminho_csv, caminho_saida=None, centros=None):
-    """Lê o arquivo desta execução, consulta os centros e devolve o Excel gerado."""
+    """Resumo: Consulta os centros de custo, transforma o consolidado e salva a planilha.
+
+    Parâmetros: caminho_csv (str ou Path), CSV baixado; caminho_saida (str ou Path, opcional), destino do Excel; centros (DataFrame, opcional), relação já consultada para testes locais.
+
+    Retorno: Path absoluto do Excel gerado. Erros de leitura, transformação ou exportação interrompem o fluxo.
+    """
     caminho_csv = Path(caminho_csv).resolve(strict=True)
     if centros is None:
-        # Importação relativa: este módulo pertence ao pacote Ajuste_base_consolidado.
         from .centro_custo import connection_in_base, consultation_in_base, analysis_base
         cursor = connection_in_base()
         conexao = cursor.connection
@@ -291,7 +299,6 @@ def disparar_ajuste_consolidado(caminho_csv, caminho_saida=None, centros=None):
     if caminho_saida is None:
         caminho_saida = caminho_csv.parent / (caminho_csv.stem + '_tratado.xlsx')
     caminho_saida = Path(caminho_saida).resolve()
-    # Formatação de data no Excel sem exibir horas.
     with pd.ExcelWriter(caminho_saida, engine='xlsxwriter', date_format='dd/mm/yyyy', datetime_format='dd/mm/yyyy') as writer:
         resultado.to_excel(writer, index=False)
     return caminho_saida

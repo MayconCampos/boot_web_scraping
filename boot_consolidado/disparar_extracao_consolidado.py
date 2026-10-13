@@ -1,4 +1,3 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 import logging
 from .extracao_consolidado import (
     abrir_navegado,

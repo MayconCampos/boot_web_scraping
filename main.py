@@ -1,10 +1,15 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 import logging
 from datetime import date
 from conf_geral import data_anterior, data_referencia
 
 
 def fluxo_criticas(mes, ano):
+    """Resumo: Executa a extração, o tratamento e o envio das críticas ao Shift.
+
+    Parâmetros: mes (str), nome do mês; ano (int), ano de referência.
+
+    Retorno: Nenhum. Levanta RuntimeError se uma etapa falhar.
+    """
     from boot_extracao.disparar_extracao import disparar_extracao
     from Ajuste_base_critica.disparar_excel import disparar_ajuste
     from boot_shift.disparar_shift import disparar_critica
@@ -19,6 +24,12 @@ def fluxo_criticas(mes, ano):
 
 
 def fluxo_consolidado(mes, ano):
+    """Resumo: Executa a extração, o tratamento e o envio do consolidado ao Shift.
+
+    Parâmetros: mes (str), nome do mês; ano (int), ano de referência.
+
+    Retorno: Nenhum. Interrompe o fluxo se uma etapa falhar.
+    """
     from boot_consolidado.disparar_extracao_consolidado import disparar_extracao_consolidado
     from Ajuste_base_consolidado.df_consolidado import disparar_ajuste_consolidado
     from boot_shift_consolidado.disparar_shift_consolidado import disparar_critica_consolidado
@@ -33,6 +44,12 @@ def fluxo_consolidado(mes, ano):
 
 
 def executar(hoje=None, executar_criticas=None, executar_consolidado=None):
+    """Resumo: Processa as críticas e, no dia 20, executa depois o consolidado nos mesmos períodos.
+
+    Parâmetros: hoje (date, opcional), data da execução; executar_criticas e executar_consolidado (funções, opcionais), substituições para testes sem acesso aos sistemas.
+
+    Retorno: Nenhum. Antes do dia 18 processa o mês anterior e o atual; nos demais dias, somente o atual.
+    """
     hoje = hoje or date.today()
     executar_criticas = executar_criticas or fluxo_criticas
     executar_consolidado = executar_consolidado or fluxo_consolidado
@@ -45,9 +62,8 @@ def executar(hoje=None, executar_criticas=None, executar_consolidado=None):
         logging.info('Processando críticas: %s/%s', mes, ano)
         executar_criticas(mes, ano)
 
-    # Alterado pelo Codex: dia 20, depois de todas as críticas, usa os mesmos períodos.
-    # A chamada normal de main.py continua sendo a entrada da automação.
     if hoje.day == 20:
+        mes, ano = data_anterior(hoje.month, hoje.year)
         for mes, ano in periodos:
             logging.info('Processando consolidado: %s/%s', mes, ano)
             executar_consolidado(mes, ano)

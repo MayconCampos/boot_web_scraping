@@ -1,4 +1,3 @@
-# Alterado pelo Codex (13/10/2026): integração dos consolidados e execução após as críticas.
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,7 +18,6 @@ def abrir_navegado():
 
     Retorno: Tupla com o navegador Selenium e sua espera explícita.
     """
-    # Alterado pelo Codex: o navegador usa a mesma pasta monitorada pelo download.
     options = webdriver.ChromeOptions()
     options.add_experimental_option('prefs', {
         'download.default_directory': str(PASTA_DOWNLOAD.resolve()),
@@ -91,7 +89,7 @@ def perfis_acesso(wait):
     return True
 
 def gerando_relatorio(wait,mes_importacao, ano_importacao):
-    """Resumo: Configura e confirma a geração do relatório de críticas.
+    """Resumo: Configura e confirma a geração do relatório consolidado.
 
     Parâmetros: wait (WebDriverWait), espera do Selenium; mes_importacao (str), mês; ano_importacao (int), ano.
 
