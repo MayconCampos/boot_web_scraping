@@ -1,19 +1,29 @@
 import pyodbc
 import pandas as pd
-from config import LOGIN_DB, PASSWORD_DB
+from config import _obter_variavel_obrigatoria
+
+def obter_login():
+    return _obter_variavel_obrigatoria("LOGIN_DB")
+
+def obter_senha():
+    return _obter_variavel_obrigatoria("PASSWORD_DB")
 
 def connection_in_base():
+    
+    login_db = obter_login()
+    password_db = obter_senha()
+    
     connection = pyodbc.connect(
         "Driver={ODBC Driver 18 for SQL Server};"
         "Server=10.52.28.105;"
-        f"UID={LOGIN_DB};"
-        f"PWD={PASSWORD_DB};"
+        f"UID={login_db};"
+        f"PWD={password_db};"
         "TrustServerCertificate=yes"
     )
     
     cursor = connection.cursor()
-    
-    return cursor
+
+    return cursor, connection
 
 def consultation_in_base(cursor):
     cursor.execute(

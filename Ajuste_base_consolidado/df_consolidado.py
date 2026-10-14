@@ -287,14 +287,13 @@ def disparar_ajuste_consolidado(caminho_csv, caminho_saida=None, centros=None):
     caminho_csv = Path(caminho_csv).resolve(strict=True)
     if centros is None:
         from .centro_custo import connection_in_base, consultation_in_base, analysis_base
-        cursor = connection_in_base()
-        conexao = cursor.connection
+        cursor, connection = connection_in_base()
         try:
             valores, descricao = consultation_in_base(cursor)
             centros = analysis_base(valores, descricao)
         finally:
             cursor.close()
-            conexao.close()
+            connection.close()
     resultado = transformar_consolidado(caminho_csv, centros)
     if caminho_saida is None:
         caminho_saida = caminho_csv.parent / (caminho_csv.stem + '_tratado.xlsx')
