@@ -1,8 +1,3 @@
-
-
-
-
-
 from datetime import date
 
 # Mapeia o número do mês para seu nome usado nas telas dos sistemas.

@@ -299,5 +299,5 @@ def disparar_ajuste_consolidado(caminho_csv, caminho_saida=None, centros=None):
         caminho_saida = caminho_csv.parent / (caminho_csv.stem + '_tratado.xlsx')
     caminho_saida = Path(caminho_saida).resolve()
     with pd.ExcelWriter(caminho_saida, engine='xlsxwriter', date_format='dd/mm/yyyy', datetime_format='dd/mm/yyyy') as writer:
-        resultado.to_excel(writer, index=False)
+        resultado.to_excel(writer, sheet_name='layout',index=False)
     return caminho_saida
