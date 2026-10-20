@@ -15,7 +15,7 @@ def disparar_critica(mes_importacao, ano_importacao, caminho_arquivo):
 
     Retorno: True após a confirmação de sucesso; False em falhas de envio. Arquivo inexistente gera erro antes de abrir o navegador.
     
-    obs: Esses dados de criticas são guardados na tabela "SHIFT.Producao.HistoricoCriticas"
+    Obs: A tabela que recebe os dados do excel no banco de dados é: SHIFT.Producao.HistoricoCriticas
     """
     from pathlib import Path
     caminho_arquivo = Path(caminho_arquivo).resolve(strict=True)

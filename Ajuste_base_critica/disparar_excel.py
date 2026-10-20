@@ -14,6 +14,8 @@ def disparar_ajuste(caminho=None):
     Parâmetros: caminho (str | None), caminho opcional do CSV de origem.
 
     Retorno: Caminho da planilha gerada ou False quando a transformação falha.
+    
+    Obs: A tabela que recebe os dados do excel no banco de dados é: BIC_DW.Educacao.FatoProducaoEstruturada
     """
     try:
         if caminho is None:
