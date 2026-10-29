@@ -1,5 +1,5 @@
 import pandas as pd
-import os
+from pathlib import Path
 
 def ajuste_base(caminho):
     """Resumo: Renomeia e reordena as colunas da crítica importada.
@@ -71,15 +71,15 @@ def regras_negocio(df_reordenada):
 
     return df_reordenada
 
-def exportando_excel(df_reordenada):
+def exportando_excel(df_reordenada, caminho_entrada):
     """Resumo: Exporta a crítica tratada para a planilha de envio.
 
-    Parâmetros: df_reordenada (DataFrame), dados tratados para exportação.
+    Parâmetros: df_reordenada (DataFrame), dados tratados para exportação;
+    caminho_entrada (str ou Path), CSV usado nesta execução.
 
     Retorno: Caminho da planilha Excel gerada.
     """
-    caminho_pasta = os.path.dirname(__file__)
-    caminho_saida = os.path.join(caminho_pasta,"Critica_SGE.xlsx")
+    caminho_saida = Path(caminho_entrada).resolve().parent / "Critica_SGE.xlsx"
     df_reordenada.to_excel(caminho_saida, index=False,engine="xlsxwriter")
     print(f"Arquivo ajustado para envio: {caminho_saida}")
     return caminho_saida

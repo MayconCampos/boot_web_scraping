@@ -24,7 +24,7 @@ def disparar_ajuste(caminho=None):
                 return False
         df_reordenada = ajuste_base(caminho)
         df_reordenada = regras_negocio(df_reordenada)
-        return exportando_excel(df_reordenada)
+        return exportando_excel(df_reordenada, caminho)
     except Exception as erro:
         print(f"Falha ao transformar o arquivo {caminho}: {erro}")
         return False
