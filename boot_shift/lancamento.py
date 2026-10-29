@@ -16,7 +16,7 @@ def abrir_navegador():
     driver = webdriver.Edge()
     driver.maximize_window()
     driver.get("https://shift.sfiemt.ind.br:8043/login")
-    wait = WebDriverWait(driver, 60)
+    wait = WebDriverWait(driver, 120)
     return driver, wait
 
 def login(wait):
@@ -198,7 +198,7 @@ def anexando_critica(driver, wait, caminho_arquivo):
 
 
     botao_salvar = WebDriverWait(
-        driver, 60, ignored_exceptions=(StaleElementReferenceException,)
+        driver, 120, ignored_exceptions=(StaleElementReferenceException,)
     ).until(
         EC.element_to_be_clickable(
             (By.XPATH,'//button[.//span[normalize-space()="Salvar"]]')
